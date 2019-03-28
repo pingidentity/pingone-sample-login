@@ -83,6 +83,8 @@ To create your test user:
 git clone https://github.com/pingidentity/pingone-customers-sample-login
 ```
 
+Publish /dist/* to the DocumentRoot of your web server
+
 ### Edit js/auth.js
 
 Edit js/auth.js with your tenant's variables (clientId, environmentId, populationId)
