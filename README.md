@@ -11,3 +11,10 @@ Provides an example login application for use with PingOne for Customers.  This 
 
 ## Prerequisites
 You will need your own [PingOne for Customers](https://developer.pingidentity.com/) tenant
+
+## Getting Started
+
+```
+git clone https://github.com/pingidentity/pingone-customers-sample-login
+```
+
