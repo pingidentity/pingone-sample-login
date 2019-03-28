@@ -22,12 +22,14 @@ Once you have your own tenant, use the PingOne for Customers Admin Console to ad
 3. Select the **Single Page App** type.
 4. Click **Configure**.
 5. Create the application profile by entering the following information:
-* **Application name**. A unique identifier for the application.
-* **Description** (optional). A brief characterization of the application.
-* **Icon** (optional). A pictorial representation of the application. Use a file up to 1MB in JPG, JPEG, GIF, or PNG format.
-6. Click Save and Close.
+* **Application name**: pingone-customers-sample-login or other name
+6. Click **Next**.
+7. **Redirect URI**: The URL where dist/login/ will live.  For example, https://www.example.com/login/
+8. Click **Save and Continue**
+9. Add the following scopes: **address**, **email**, **phone** and **profile**
+10. Click **Save and Close**
 
-The Applications page shows the new application and its **Client ID** (under the application name). Click the Application’s details icon to show the details view. Click the toggle switch to enable the application.
+The Applications page shows the new application.  Click the toggle switch to enable the application.  View the details of your application and make note of its **Client ID**.
 
 You will also need your **Environment ID**.  To get your Environment ID, in the Admin Console, click Settings, then Environment, then Properties. The Properties page shows the environment ID.
 
