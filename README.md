@@ -13,7 +13,6 @@ Provides an example login application for use with PingOne for Customers.  This 
 * dist/js/auth.js         - Shared JavaScript with configuratioin for your P14C tenant
 * dist/login/index.html   - Sample login application
 * dist/logout/index.html  - Logout mechanism
-* dist/css/stylesheet.css - Shares stylesheet
 
 ## Getting Started
 
