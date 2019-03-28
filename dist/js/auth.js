@@ -3,7 +3,7 @@
 const environmentId = ''; // available on settings page of p14c admin console
 const clientId = ''; // available on connections tab of admin console
 
-const scopes = 'openid profile address email';
+const scopes = 'openid profile';
 const responseType = 'token id_token';
 const acrValue = 'Single_Factor'; // Single_Factor or Multi_Factor.  Must be assigned as a Policy to your app connection 
 

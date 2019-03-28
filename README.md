@@ -33,7 +33,7 @@ Once you have your own tenant, use the PingOne for Customers Admin Console to ad
 6. Click **Next**.
 7. **Redirect URI**: The URL where dist/login/ will live.  For example, https://www.example.com/login/
 8. Click **Save and Continue**
-9. Add the following scopes: **address**, **email**, **phone** and **profile**
+9. At a minimum, add the following scope: **profile**
 10. Click **Save and Close**
 
 The Applications page shows the new application.  Click the toggle switch to enable the application.  View the details of your application and make note of its **Client ID**.
