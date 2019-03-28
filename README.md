@@ -31,7 +31,42 @@ Once you have your own tenant, use the PingOne for Customers Admin Console to ad
 
 The Applications page shows the new application.  Click the toggle switch to enable the application.  View the details of your application and make note of its **Client ID**.
 
-You will also need your **Environment ID**.  To get your Environment ID, in the Admin Console, click Settings, then Environment, then Properties. The Properties page shows the environment ID.
+### Get your Environment ID###
+To get your **Environment ID**, in the Admin Console, click Settings, then Environment, then Properties. The Properties page shows the environment ID.
+
+### Create Test User###
+To create your test user:
+
+1. Click **Users**.
+2. Click + **Add User**.
+3. At a minimum, specify a **username** such as michael@example.com.
+4. Click **Save**
+5. View your new user and select **Reset Password**
+6. Specify an initial password, such as **4Science**.
+7. Click **Save**
+8. Navigate to the **API** tab of your new user
+9. Click **View JSON**
+
+```json
+{
+  "_embedded": {},
+  "username": "suzanne@example.com",
+  "population": {
+    "_links": {
+      "self": {
+        "href": "https://api.pingone.com/v1/environments/47ccf5bf-700c-4933-acd5/populations/9c07631a-261d-4205-8f91"
+      }
+    },
+    "id": "9c07631a-261d-4205-8f91",
+    "name": "Default",
+    "userCount": 1,
+    "createdAt": "2019-03-27T14:34:41.154Z",
+    "updatedAt": "2019-03-27T14:34:41.154Z"
+  }
+}
+```
+
+10. Make note of your **Population ID**.
 
 ### Clone this Repository
 ```
