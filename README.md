@@ -17,9 +17,11 @@ Provides an example login application for use with PingOne for Customers.  This 
 ## Getting Started
 
 ### Prerequisites
+
 You will need your own PingOne for Customers tenant.  You can [sign up for a trial](https://developer.pingidentity.com/).
 
 ### Register your Application Connection
+
 Once you have your own tenant, use the PingOne for Customers Admin Console to add an application connection. To create the application connection:
 
 1. Click **Connections**.
@@ -41,9 +43,11 @@ The Applications page shows the new application.  Click the toggle switch to ena
 12. Click **Save and Close**
 
 ### Get your Environment ID
+
 To get your **Environment ID**, in the Admin Console, click Settings, then Environment, then Properties. The Properties page shows the environment ID.
 
 ### Create Test User
+
 To create your test user:
 
 1. Click **Users**.
@@ -53,31 +57,9 @@ To create your test user:
 5. View your new user and select **Reset Password**
 6. Specify an initial password, such as **4Science**.
 7. Click **Save**
-8. Navigate to the **API** tab of your new user
-9. Click **View JSON**
-
-```javascript
-{
-  "_embedded": {},
-  "username": "michael@example.com",
-  "population": {
-    "_links": {
-      "self": {
-        "href": "https://api.pingone.com/v1/environments/47ccf5bf-700c-4933-acd5/populations/9c07631a-261d-4205-8f91"
-      }
-    },
-    "id": "9c07631a-261d-4205-8f91",
-    "name": "Default",
-    "userCount": 1,
-    "createdAt": "2019-03-27T14:34:41.154Z",
-    "updatedAt": "2019-03-27T14:34:41.154Z"
-  }
-}
-```
-
-10. Make note of your **Population ID** (9c07631a-261d-4205-8f91 in the example above).
 
 ### Clone this Repository
+
 ```
 git clone https://github.com/pingidentity/pingone-customers-sample-login
 ```
