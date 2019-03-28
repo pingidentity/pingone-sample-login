@@ -1,9 +1,9 @@
 // variable definitions and building authorization url
 
-const environmentId = '47ccf5bf-700c-4933-acd5-21f6524c808f'; // available on settings page of p14c admin console
-const clientId = '58d35489-681c-4f2f-a941-fbed7f4aece3'; // available on connections tab of admin console
+const environmentId = ''; // available on settings page of p14c admin console
+const clientId = ''; // available on connections tab of admin console
 
-const scopes = 'openid profile address email openid';
+const scopes = 'openid profile address email';
 const responseType = 'token id_token';
 const acrValue = 'Single_Factor'; // Single_Factor or Multi_Factor.  Must be assigned as a Policy to your app connection 
 
