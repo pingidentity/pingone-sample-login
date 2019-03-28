@@ -60,7 +60,7 @@ To create your test user:
 ```javascript
 {
   "_embedded": {},
-  "username": "suzanne@example.com",
+  "username": "michael@example.com",
   "population": {
     "_links": {
       "self": {
