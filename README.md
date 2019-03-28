@@ -1,6 +1,12 @@
 # PingOne for Customers Sample Login
 Provides an example login application for use with PingOne for Customers.  This sample application is written in HTML and JavaScript and leverages JQuery, Bootstrap and js-cookie
 
+## Quick Start
+
+* Create a PingOne for Customers Application and Sample User
+* Update js/auth.js with your tenant's variables
+* Publish the contents of dist/* to your web server root
+
 ## Contents
 
 * dist/index.html         - Landing page for anonymous or authenticated users
@@ -9,10 +15,10 @@ Provides an example login application for use with PingOne for Customers.  This 
 * dist/logout/index.html  - Logout mechanism
 * dist/css/stylesheet.css - Shares stylesheet
 
-## Prerequisites
-You will need your own PingOne for Customers tenant.  You can [sign up for a trial](https://developer.pingidentity.com/).
-
 ## Getting Started
+
+### Prerequisites
+You will need your own PingOne for Customers tenant.  You can [sign up for a trial](https://developer.pingidentity.com/).
 
 ### Register your Application Connection
 Once you have your own tenant, use the PingOne for Customers Admin Console to add an application connection. To create the application connection:
@@ -30,6 +36,9 @@ Once you have your own tenant, use the PingOne for Customers Admin Console to ad
 10. Click **Save and Close**
 
 The Applications page shows the new application.  Click the toggle switch to enable the application.  View the details of your application and make note of its **Client ID**.
+
+11. On the Profile Tab of your new application, populate **SignOn URL** with the location that dist/login/ will live.  For example, https://www.example.com/login/
+12. Click **Save and Close**
 
 ### Get your Environment ID
 To get your **Environment ID**, in the Admin Console, click Settings, then Environment, then Properties. The Properties page shows the environment ID.
