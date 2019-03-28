@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- bootstrap core css -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- local css -->
+  <link href="/css/stylesheet.css" rel="stylesheet" />
+
+  <!-- Custom fonts for this template -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+    rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+    type="text/css" />
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+</head>
+
+<body>
+  <!-- page container -->
+  <div class="container-fluid">
+    <!-- navigation -->
+    <nav class="navbar navbar-expand-lg">
+      <a class="navbar-brand" href="/">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-uppercase" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link d-none btn btn-outline-dark text-white" id="signOnButton"
+              href="/login/">Login</a></li>
+          &nbsp;&nbsp;
+          <li class="nav-item">
+            <a class="nav-link d-none btn btn-outline-dark text-white" id="logoutButton" href="/logout/">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- /navigation -->
+
+    <section class="testimonials">
+
+      <div class="container collapse" id="loginDiv">
+        <div class="row">
+          <div class="col-md-8">
+            <h2 class="mb-4">Sign In</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <form>
+              <div class="form-group">
+                <label for="username">Email Address</label>
+                <input type="text" class="form-control" name="username" id="username" placeholder="user@example.com"
+                  autocomplete="username" autofocus />
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="****************"
+                  autocomplete="current-password" required />
+              </div>
+              <div class="form-group collapse">
+                <input type="text" class="form-control" name="validatePasswordUrl" id="validatePasswordUrl" readonly />
+              </div>
+              <div class="form-group collapse">
+                <input type="text" class="form-control" name="validatePasswordContentType"
+                  id="validatePasswordContentType" readonly />
+              </div>
+              <a href="#" class="btn btn-primary" onclick="javascript:validatePassword();">Sign In</a>
+            </form>
+          </div>
+          <!-- column -->
+        </div>
+        <!-- row -->
+      </div>
+
+      <div class="container collapse" id="otpDiv">
+        <h2 class="mb-5">Multifactor Authentication</h2>
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="username">One Time Passcode</label>
+              <input type="text" class="form-control" name="otp" id="otp" placeholder="ex 5551212" autofocus required />
+            </div>
+            <div class="form-group col-md-12 collapse">
+              <input type="text" class="form-control" name="validateOtpUrl" id="validateOtpUrl" readonly />
+            </div>
+            <div class="form-group col-md-12 collapse">
+              <input type="text" class="form-control" name="validateOtpContentType" id="validateOtpContentType"
+                readonly />
+            </div>
+          </div>
+          <a href="#" class="btn btn-primary" onclick="javascript:validateOtp();">Sign In</a>
+        </form>
+      </div>
+
+      <div class="container collapse" id="passwordDiv">
+        <div class="row">
+          <div class="col">
+            <h2 class="mb-4">New Password</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="changePassword">Password</label>
+                  <input type="password" class="form-control" name="changePassword" id="changePassword"
+                    placeholder="****************" autofocus required />
+                </div>
+                <div class="form-group col-md-12 collapse">
+                  <input type="text" class="form-control" name="changePasswordUrl" id="changePasswordUrl" readonly />
+                </div>
+                <div class="form-group col-md-12 collapse">
+                  <input type="text" class="form-control" name="changePasswordContentType"
+                    id="changePasswordContentType" readonly />
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary" onclick="javascript:changePassword();">Change Password</a>
+            </form>
+          </div>
+          <div class="col">
+            <ul class="mt-4">
+              <li id="length" class="text-primary">The password must be at least 8 characters in length</li>
+              <li id="uppercase" class="text-primary">The password must have one or more upper case letters</li>
+              <li id="lowercase" class="text-primary">The password must have one or more lower case letters</li>
+              <li id="numeric" class="text-primary">The password must have one or more number</li>
+              <li id="special" class="text-primary">The password must have one or more special characters</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container collapse" id="continueDiv">
+        <a href="/" class="btn btn-primary" id="continueButton">Continue</a>
+      </div>
+
+      <div class="container collapse" id="redirectDiv">
+        <h2 class="mb-5">Successful</h2>
+        <p>On your way to see the world!</p>
+      </div>
+
+      <div class="container collapse mt-4" id="warningDiv">
+        <div class="alert alert-warning" id="warningMessage">pending</div>
+      </div>
+
+      <!-- /Login Form -->
+    </section>
+
+  </div>
+  <!-- /content column -->
+
+  <!-- /Login Form -->
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+          <p class="text-muted small mb-4 mb-lg-0">&copy; Ping Identity 2019. All Rights Reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- /Footer -->
+  </div>
+  <!-- /page congainer -->
+
+  <!-- jquery and bootstrap js libraries -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JavaScript Cookie plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+  <!-- local javascript functions -->
+  <script src="/js/auth.js"></script>
+
+  <script>
+
+    // some housekeeping variables
+    const flowId = getUrlParameter('flowId');
+
+    const regexLower = new RegExp('(?=.*[a-z])');
+    const regexUpper = new RegExp('(?=.*[A-Z])');
+    const regexNumeric = new RegExp('(?=.*[0-9])');
+    const regexSpecial = new RegExp('(?=.*[~!@#\$%\^&\*\)\(\|\;\:\,\.\?\_\-])');
+    const regexLength = new RegExp('(?=.{8,})');
+
+    $('#changePassword').on('input', function (e) {
+      let thisPassword = $('#changePassword').val();
+
+      if (regexLower.test(thisPassword)) {
+        $('#lowercase').removeClass('text-primary');
+      } else {
+        $('#lowercase').addClass('text-primary');
+      }
+
+      if (regexUpper.test(thisPassword)) {
+        $('#uppercase').removeClass('text-primary');
+      } else {
+        $('#uppercase').addClass('text-primary');
+      }
+
+      if (regexNumeric.test(thisPassword)) {
+        $('#numeric').removeClass('text-primary');
+      } else {
+        $('#numeric').addClass('text-primary');
+      }
+
+      if (regexSpecial.test(thisPassword)) {
+        $('#special').removeClass('text-primary');
+      } else {
+        $('#special').addClass('text-primary');
+      }
+
+      if (regexLength.test(thisPassword)) {
+        $('#length').removeClass('text-primary');
+      } else {
+        $('#length').addClass('text-primary');
+      }
+    });
+
+    // getUrlParameter function parses out the querystring to fetch specific value (e.g., flowId)
+    function getUrlParameter(parameterName) {
+      let pageUrl = window.location.search.substring(1);
+      let urlVariables = pageUrl.split('&');
+      for (let i = 0; i < urlVariables.length; i++) {
+        let thisParameterName = urlVariables[i].split('=');
+        if (thisParameterName[0] == parameterName) return thisParameterName[1];
+      }
+    }
+
+    // exJax function makes an AJAX call
+    function exJax(method, url, callback, contenttype, payload) {
+      console.log('ajax (' + url + ')');
+      $.ajax({
+        url: url,
+        method: method,
+        dataType: 'json',
+        contentType: contenttype,
+        data: payload,
+        xhrFields: {
+          withCredentials: true
+        }
+      })
+        .done(function (data) {
+          callback(data);
+        })
+        .fail(function (data) {
+          console.log('ajax call failed');
+          console.log(data);
+        });
+    }
+
+    // change password function
+    function changePassword() {
+      console.log('changePassword called');
+      let payload = JSON.stringify({ currentPassword: $('#password').val(), newPassword: $('#changePassword').val() });
+      let url = $('#changePasswordUrl').val();
+      let contenttype = $('#changePasswordContentType').val();
+      exJax('POST', url, nextStep, contenttype, payload);
+    }
+
+    // validate password function
+    function validatePassword() {
+      console.log('validatePassword called');
+      let payload = JSON.stringify({ username: $('#username').val(), password: $('#password').val() });
+      let url = $('#validatePasswordUrl').val();
+      let contenttype = $('#validatePasswordContentType').val();
+      exJax('POST', url, nextStep, contenttype, payload);
+    }
+
+    // validate one time passcode function
+    function validateOtp() {
+      console.log('validateOtp called');
+      let payload = JSON.stringify({ otp: $('#otp').val() });
+      let url = $('#validateOtpUrl').val();
+      let contenttype = $('#validateOtpContentType').val();
+      exJax('POST', url, nextStep, contenttype, payload);
+    }
+
+    function nextStep(data) {
+      status = data.status;
+      console.log('Parsing json to determine next step: ' + status);
+
+      switch (status) {
+        case 'USERNAME_PASSWORD_REQUIRED':
+          console.log('Rendering login form');
+          $('#loginDiv').show();
+          $('#otpDiv').hide();
+          $('#validatePasswordUrl').val(data._links['usernamePassword.check'].href);
+          $('#validatePasswordContentType').val('application/vnd.pingidentity.usernamePassword.check+json');
+          break;
+        case 'PASSWORD_REQUIRED':
+          console.log('Rendering login form');
+          $('#loginDiv').show();
+          $('#otpDiv').hide();
+          $('#validatePasswordUrl').val(data._embedded.requiredStep._links['usernamePassword.check'].href);
+          $('#validatePasswordContentType').val('application/vnd.pingidentity.usernamePassword.check+json');
+          break;
+        case 'OTP_REQUIRED':
+          console.log('Rendering otp form');
+          $('#loginDiv').hide();
+          $('#otpDiv').show();
+          $('#validateOtpUrl').val(data._links['otp.check'].href);
+          $('#validateOtpContentType').val('application/vnd.pingidentity.otp.check+json')
+          break;
+        case 'MUST_CHANGE_PASSWORD':
+          console.log('Rendering password form');
+          $('#loginDiv').hide();
+          $('#passwordDiv').show();
+          $('#changePasswordUrl').val(data._links['password.reset'].href);
+          $('#changePasswordContentType').val('application/vnd.pingidentity.password.reset+json')
+          break;
+        case 'COMPLETED':
+          console.log('completed authentication successfully');
+          $('#warningMessage').text('');
+          $('#warningDiv').hide();
+          console.log('Redirecting user');
+          window.location.replace(data.resumeUrl);
+          break;
+        default:
+          console.log('Unexpected outcome');
+          break;
+      }
+    }
+
+    // begin process
+    $(document).ready(function () {
+      console.log("Page ready function");
+
+      // determine if user is already signed in, and show appropriate login/logout buttons
+
+      renderButtonState();
+
+      // do I already have a session cookie?
+
+      if (Cookies.get('accessToken', { domain: cookieDomain }) && Cookies.get('username', { domain: cookieDomain })) {
+
+        // yes, user already has a session
+
+        console.log('username (' + Cookies.get('username', { domain: cookieDomain }) + ')');
+        console.log('accessToken (' + Cookies.get('accessToken', { domain: cookieDomain }) + ')');
+
+        window.location.replace(landingUrl);
+
+      } else {
+
+        // parse the url fragment for any access token
+
+        let fragmentString = location.hash.substr(1);
+        let fragment = {};
+        let fragmentItemStrings = fragmentString.split('&');
+
+        for (var i in fragmentItemStrings) {
+          var fragmentItem = fragmentItemStrings[i].split('=');
+          if (fragmentItem.length !== 2) {
+            continue;
+          }
+          fragment[fragmentItem[0]] = fragmentItem[1];
+        }
+
+        let accessToken = fragment['access_token'];
+        let idToken = fragment['id_token'];
+
+        if (accessToken && idToken) {
+
+          // we got an access token from the url fragment
+          console.log('Access token received from URL fragment');
+          console.log('accessToken: ' + accessToken);
+          console.log('idToken: ' + idToken);
+
+          // parse id token for subject and other details
+
+          idPayload = parseJwt(idToken);
+
+          console.log(idPayload);
+
+          Cookies.set('uuid', idPayload.sub, { domain: cookieDomain });
+          Cookies.set('accessToken', accessToken, { domain: cookieDomain });
+          Cookies.set('idToken', idToken, { domain: cookieDomain });
+
+          window.location.replace(landingUrl);
+
+        } else {
+
+          // missing accessToken or idToken for this individual
+
+          console.log('No existing user session or token found');
+
+          // was the user just sent here from p14c?
+
+          if (flowId) {
+
+            // url has a flowId - so they just arrived from p14c
+            console.log('flowId found in url');
+            console.log('User already bootstrapped through p14c');
+            console.log('Performing p14c ajax query to determine next step');
+            let flowUrl = authUrl + '/' + environmentId + '/flows/' + flowId;
+            exJax('GET', flowUrl, nextStep, 'application/json');
+
+          } else {
+
+            // url does not have a flowId.  and we don't have a session.  send them authorizationUrl
+            console.log('No flowId found in url');
+            console.log('Redirecting to p14c to bootstrap session');
+            window.location.replace(authorizationUrl);
+
+          }
+
+        }
+
+      }
+
+    });
+
+  </script>
+
+</body>
+
+</html>

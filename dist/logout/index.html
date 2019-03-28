@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- bootstrap core css -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- local css -->
+  <link href="/css/stylesheet.css" rel="stylesheet" />
+
+  <!-- Custom fonts for this template -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+    rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+    type="text/css" />
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+</head>
+
+<body>
+  <!-- jquery and bootstrap js libraries -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JavaScript Cookie plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+  <!-- local javascript functions -->
+  <script src="/js/auth.js"></script>
+
+  <!-- let us log this individual out of here -->
+  <script>
+    $(document).ready(function () {
+      console.log('logout called');
+
+      let idToken = Cookies.get('idToken');
+      let accessToken = Cookies.get('accessToken');
+
+      if (!idToken || !accessToken) {
+        console.log('Unable to find a session for this user');
+
+        window.location.replace(landingUrl);
+      } else {
+        console.log('idToken: ' + idToken);
+
+        Cookies.remove('idToken', { domain: cookieDomain });
+        Cookies.remove('accessToken', { domain: cookieDomain });
+        Cookies.remove('uuid', { domain: cookieDomain });
+
+        let logoffUrl = authUrl + '/' + environmentId + '/as/signoff?id_token_hint=' + idToken + '&post_logout_redirect_uri=' + logoutUrl;
+
+        window.location.replace(logoffUrl);
+      }
+    });
+  </script>
+</body>
+
+</html>
