@@ -39,8 +39,9 @@ Once you have your own tenant, use the PingOne for Customers Admin Console to ad
 The Applications page shows the new application.  Click the toggle switch to enable the application.  View the details of your application and make note of its **Client ID**.
 
 11. On the Profile Tab of your new application, populate **SignOn URL** with the location that dist/login/ will live.  For example, https://www.example.com/login/
-12. On the Policy Tab, add **Single Factor** and **Multi Factor**
-12. Click **Save and Close**
+12. On the Configuration Yab of your new application, populat **SignOff URLs** with the location that dist/logout/ will live.  For example, https://www.example.com/logout/
+13. On the Policy Tab, add **Single Factor** and **Multi Factor**
+14. Click **Save and Close**
 
 ### Get your Environment ID
 
@@ -68,4 +69,4 @@ Publish /dist/* to the DocumentRoot of your web server
 
 ### Edit js/auth.js
 
-Edit js/auth.js with your tenant's variables (clientId, environmentId, populationId)
+Edit js/auth.js with your tenant's variables (clientId, environmentId, baseUrl)
