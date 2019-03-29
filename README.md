@@ -5,7 +5,7 @@ Provides an example login application for use with PingOne for Customers.  This 
 
 * Create a PingOne for Customers Application and Sample User
 * Update js/auth.js with your tenant's variables
-* Publish the contents of dist/* to your web server root
+* Publish the contents of /dist to the DocumentRoot of your web server
 
 ## Contents
 
@@ -40,7 +40,7 @@ The Applications page shows the new application.  Click the toggle switch to ena
 
 11. On the Profile Tab of your new application, populate **SignOn URL** with the location that dist/login/ will live.  For example, https://www.example.com/login/
 12. On the Configuration Yab of your new application, populat **SignOff URLs** with the location that dist/logout/ will live.  For example, https://www.example.com/logout/
-13. On the Policy Tab, add **Single Factor** and **Multi Factor**
+13. On the Policy Tab, at a minimum, add **Single Factor**2
 14. Click **Save and Close**
 
 ### Get your Environment ID
@@ -65,7 +65,7 @@ To create your test user:
 git clone https://github.com/pingidentity/pingone-customers-sample-login
 ```
 
-Publish /dist/* to the DocumentRoot of your web server
+Publish the contents of /dist to the DocumentRoot of your web server.  A URL similar to https://www.example.com/ is preferred to https://www.example.com/dist/
 
 ### Edit js/auth.js
 
