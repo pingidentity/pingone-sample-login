@@ -2,15 +2,16 @@
 
 const environmentId = ''; // available on settings page of p14c admin console
 const clientId = ''; // available on connections tab of admin console
+const baseUrl = 'https://localhost:5500/'; // URL of where you will host this application
 
 const scopes = 'openid profile';
 const responseType = 'token id_token';
 const acrValue = 'Single_Factor'; // Single_Factor or Multi_Factor.  Must be assigned as a Policy to your app connection 
 
 const cookieDomain = ''; // unnecessary unless using subdomains (e.g., login.example.com, help.example.com, docs.example.com).  Then use a common root (e.g., .example.com)
-const landingUrl = 'https://localhost:5500/'; // url to send the person once authentication is complete
-const logoutUrl = 'https://localhost:5500/logout/'; // whitelisted url to send a person who wants to logout
-const redirectUri = 'https://localhost:5500/login/'; // whitelisted url P14C sends the token or code to
+const landingUrl = baseUrl; // url to send the person once authentication is complete
+const logoutUrl = baseUrl + 'logout/'; // whitelisted url to send a person who wants to logout
+const redirectUri = baseUrl + 'login/'; // whitelisted url P14C sends the token or code to
 
 const authUrl = 'https://auth.pingone.com';
 const apiUrl = 'https://api.pingone.com/v1';
