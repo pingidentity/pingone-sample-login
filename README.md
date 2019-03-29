@@ -38,10 +38,11 @@ Once you have your own tenant, use the PingOne for Customers Admin Console to ad
 
 The Applications page shows the new application.  Click the toggle switch to enable the application.  View the details of your application and make note of its **Client ID**.
 
-11. On the Profile Tab of your new application, populate **SignOn URL** with the location that dist/login/ will live.  For example, https://www.example.com/login/
-12. On the Configuration Yab of your new application, populat **SignOff URLs** with the location that dist/logout/ will live.  For example, https://www.example.com/logout/
-13. On the Policy Tab, at a minimum, add **Single Factor**2
-14. Click **Save and Close**
+11. **Edit** the Application (click the pencil icon)
+12. On the Profile Tab of your new application, populate **SignOn URL** with the location that dist/login/ will live.  For example, https://www.example.com/login/
+13. On the Configuration Yab of your new application, populat **SignOff URLs** with the location that dist/logout/ will live.  For example, https://www.example.com/logout/
+14. On the Policies Tab, at a minimum, add **Single Factor**2
+15. Click **Save**
 
 ### Get your Environment ID
 
