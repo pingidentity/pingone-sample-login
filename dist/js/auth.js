@@ -30,9 +30,7 @@ const authorizationUrl =
   '&redirect_uri=' +
   redirectUri +
   '&scope=' +
-  scopes +
-  '&acr_values=' +
-  acrValue;
+  scopes;
 
 // populate any login buttons with the authorization URL
 
