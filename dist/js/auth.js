@@ -6,7 +6,6 @@ const baseUrl = 'https://localhost:5500/'; // URL of where you will host this ap
 
 const scopes = 'openid profile';
 const responseType = 'token id_token';
-const acrValue = 'Single_Factor'; // Single_Factor or Multi_Factor.  Must be assigned as a Policy to your app connection 
 
 const cookieDomain = ''; // unnecessary unless using subdomains (e.g., login.example.com, help.example.com, docs.example.com).  Then use a common root (e.g., .example.com)
 const landingUrl = baseUrl; // url to send the person once authentication is complete
