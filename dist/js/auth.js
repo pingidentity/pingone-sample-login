@@ -2,7 +2,7 @@
 
 const environmentId = ''; // available on settings page of p14c admin console
 const clientId = ''; // available on connections tab of admin console
-const baseUrl = 'https://localhost:5500/'; // URL of where you will host this application
+const baseUrl = 'https://localhost/'; // URL of where you will host this application
 
 const scopes = 'openid profile';
 const responseType = 'token id_token';
