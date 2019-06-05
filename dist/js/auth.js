@@ -4,7 +4,7 @@ const environmentId = ''; // available on settings page of p14c admin console
 const clientId = ''; // available on connections tab of admin console
 const baseUrl = 'http://localhost/'; // URL of where you will host this application
 
-const scopes = 'openid profile';
+const scopes = 'openid profile'; // default scopes to request
 const responseType = 'token id_token';
 
 const cookieDomain = ''; // unnecessary unless using subdomains (e.g., login.example.com, help.example.com, docs.example.com).  Then use a common root (e.g., .example.com)
