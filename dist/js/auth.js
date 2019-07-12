@@ -15,7 +15,6 @@ const redirectUri = baseUrl + 'login/'; // whitelisted url P14C sends the token 
 const authUrl = 'https://auth.pingone.com';
 const apiUrl = 'https://api.pingone.com/v1';
 
-
 // build the authorization url in case we need it
 
 const authorizationUrl =
@@ -34,6 +33,14 @@ const authorizationUrl =
 // populate any login buttons with the authorization URL
 
 $('#signOnButton').attr('href', authorizationUrl);
+
+// if environmentId or clientId are null warn the user
+
+if (!clientId || !environmentId) {
+
+  alert('Be sure to edit js/auth.js with your environmentId and clientId');
+
+}
 
 // simple function to parse json web token
 
