@@ -69,4 +69,4 @@ Publish the contents of /dist to the DocumentRoot of your web server.  A URL sim
 
 ### Edit js/auth.js
 
-Edit js/auth.js with your tenant's variables (clientId, environmentId, baseUrl)
+Edit js/auth.js with your tenant's variables (clientId and environmentId)
