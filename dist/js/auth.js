@@ -1,7 +1,7 @@
 // variable definitions and building authorization url
 
-const environmentId = ''; // available on settings page of p14c admin console
-const clientId = ''; // available on connections tab of admin console
+const environmentId = '47ccf5bf-700c-4933-acd5-21f6524c808f'; // available on settings page of p14c admin console
+const clientId = '40c2cac0-bd7b-496f-beb2-4b8a27bcafc7'; // available on connections tab of admin console
 const baseUrl = 'http://localhost/'; // URL of where you will host this application
 
 const scopes = 'openid profile'; // default scopes to request
@@ -15,31 +15,36 @@ const redirectUri = baseUrl + 'login/'; // whitelisted url P14C sends the token 
 const authUrl = 'https://auth.pingone.com';
 const apiUrl = 'https://api.pingone.com/v1';
 
-// build the authorization url in case we need it
-
-const authorizationUrl =
-  authUrl +
-  '/' +
-  environmentId +
-  '/as/authorize?client_id=' +
-  clientId +
-  '&response_type=' +
-  responseType +
-  '&redirect_uri=' +
-  redirectUri +
-  '&scope=' +
-  scopes;
-
-// populate any login buttons with the authorization URL
-
-$('#signOnButton').attr('href', authorizationUrl);
-
 // if environmentId or clientId are null warn the user
 
 if (!clientId || !environmentId) {
-
   alert('Be sure to edit js/auth.js with your environmentId and clientId');
+}
 
+// doLogin function: generates and stores nonce, redirects to authorization request url
+
+function doLogin() {
+  let nonce = generateNonce(60);
+  let authorizationUrl =
+    authUrl +
+    '/' +
+    environmentId +
+    '/as/authorize?response_type=' +
+    responseType +
+    '&client_id=' +
+    clientId +
+    '&redirect_uri=' +
+    redirectUri +
+    '&scope=' +
+    scopes +
+    '&nonce=' +
+    nonce;
+
+  window.localStorage.setItem('nonce', nonce);
+
+  // window.localStorage.setItem('nonce', 'bogus nonce that does not match');
+
+  window.location.href = authorizationUrl;
 }
 
 // simple function to parse json web token
@@ -48,6 +53,18 @@ function parseJwt(token) {
   var base64Url = token.split('.')[1];
   var base64 = base64Url.replace('-', '+').replace('_', '/');
   return JSON.parse(window.atob(base64));
+}
+
+// function to generate random nonce
+
+function generateNonce(length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:;_-.()!';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
 
 // render navigation buttons depending on user login state

@@ -36,8 +36,8 @@
         <ul class="navbar-nav mr-auto">
         </ul>
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link d-none btn btn-primary" id="signOnButton" href="../login/">Login</a>
-          </li>
+          <li class="nav-item"><a class="nav-link d-none btn btn-primary" id="signOnButton"
+              onclick="doLogin();">Login</a></li>
           &nbsp;&nbsp;
           <li class="nav-item">
             <a class="nav-link d-none btn btn-primary" id="logoutButton" href="/logout/">Logout</a>
@@ -141,17 +141,17 @@
         </div>
       </div>
 
-      <div class="container collapse" id="continueDiv">
-        <a href="/" class="btn btn-primary" id="continueButton">Continue</a>
-      </div>
-
-      <div class="container collapse" id="redirectDiv">
-        <h2 class="mb-5">Successful</h2>
-        <p>On your way to see the world!</p>
-      </div>
-
-      <div class="container collapse mt-4" id="warningDiv">
-        <div class="alert alert-warning" id="warningMessage">pending</div>
+      <div class="container collapse" id="warningDiv">
+        <div class="row">
+          <div class="col-md-8">
+            <h2 class="mb-4" id="warningTitle"></h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <p class="lead" id="warningMessage"></p>
+          </div>
+        </div>
       </div>
 
       <!-- /Login Form -->
@@ -233,6 +233,7 @@
     });
 
     // getUrlParameter function parses out the querystring to fetch specific value (e.g., flowId)
+
     function getUrlParameter(parameterName) {
       let pageUrl = window.location.search.substring(1);
       let urlVariables = pageUrl.split('&');
@@ -243,6 +244,7 @@
     }
 
     // exJax function makes an AJAX call
+
     function exJax(method, url, callback, contenttype, payload) {
       console.log('ajax (' + url + ')');
       $.ajax({
@@ -261,10 +263,13 @@
         .fail(function (data) {
           console.log('ajax call failed');
           console.log(data);
+          $('#warningMessage').text(data.responseJSON.details[0].message);
+          $('#warningDiv').show();
         });
     }
 
     // change password function
+
     function changePassword() {
       console.log('changePassword called');
       let payload = JSON.stringify({ currentPassword: $('#password').val(), newPassword: $('#changePassword').val() });
@@ -274,6 +279,7 @@
     }
 
     // validate password function
+
     function validatePassword() {
       console.log('validatePassword called');
       let payload = JSON.stringify({ username: $('#username').val(), password: $('#password').val() });
@@ -283,6 +289,7 @@
     }
 
     // validate one time passcode function
+
     function validateOtp() {
       console.log('validateOtp called');
       let payload = JSON.stringify({ otp: $('#otp').val() });
@@ -290,6 +297,8 @@
       let contenttype = $('#validateOtpContentType').val();
       exJax('POST', url, nextStep, contenttype, payload);
     }
+
+    // nextStep function looks at JSON status field to render appropriate form
 
     function nextStep(data) {
       status = data.status;
@@ -326,6 +335,7 @@
           break;
         case 'COMPLETED':
           console.log('completed authentication successfully');
+          $('#warningTitle').text('');
           $('#warningMessage').text('');
           $('#warningDiv').hide();
           console.log('Redirecting user');
@@ -338,6 +348,7 @@
     }
 
     // begin process
+
     $(document).ready(function () {
       console.log("Page ready function");
 
@@ -347,18 +358,27 @@
 
       // do I already have a session cookie?
 
-      if (Cookies.get('accessToken', { domain: cookieDomain }) && Cookies.get('username', { domain: cookieDomain })) {
+      if (Cookies.get('accessToken', { domain: cookieDomain }) && Cookies.get('uuid', { domain: cookieDomain })) {
 
         // yes, user already has a session
 
-        console.log('username (' + Cookies.get('username', { domain: cookieDomain }) + ')');
+        console.log('Existing session found.  Redirecting to langingUrl');
+        console.log('uuid (' + Cookies.get('uuid', { domain: cookieDomain }) + ')');
         console.log('accessToken (' + Cookies.get('accessToken', { domain: cookieDomain }) + ')');
+
+        // redirect to the landingUrl
 
         window.location.replace(landingUrl);
 
       } else {
 
+        // no, user does not already have a session
+
+        console.log('Session not found');
+
         // parse the url fragment for any access token
+
+        console.log('Parsing URL Fragment for tokens');
 
         let fragmentString = location.hash.substr(1);
         let fragment = {};
@@ -375,9 +395,12 @@
         let accessToken = fragment['access_token'];
         let idToken = fragment['id_token'];
 
+        // is there something in the URL fragment?
+
         if (accessToken && idToken) {
 
-          // we got an access token from the url fragment
+          // yes, we got an access token from the url fragment
+
           console.log('Access token received from URL fragment');
           console.log('accessToken: ' + accessToken);
           console.log('idToken: ' + idToken);
@@ -388,35 +411,61 @@
 
           console.log(idPayload);
 
-          Cookies.set('uuid', idPayload.sub, { domain: cookieDomain });
-          Cookies.set('accessToken', accessToken, { domain: cookieDomain });
-          Cookies.set('idToken', idToken, { domain: cookieDomain });
+          // does requested nonce match returned nonce?
 
-          window.location.replace(landingUrl);
+          let returnedNonce = idPayload.nonce;
+          let requestedNonce = window.localStorage.getItem('nonce');
+
+          if (returnedNonce == requestedNonce) {
+
+            // yes, nonce matches
+
+            Cookies.set('uuid', idPayload.sub, { domain: cookieDomain });
+            Cookies.set('accessToken', accessToken, { domain: cookieDomain });
+            Cookies.set('idToken', idToken, { domain: cookieDomain });
+
+            window.location.replace(landingUrl);
+
+          } else {
+
+            // no, nonce does not match
+
+            console.log('Nonce validation failed');
+
+            console.log('Requested nonce: ' + requestedNonce);
+            console.log('Returned nonce: ' + returnedNonce);
+
+            $('#warningTitle').text('Nonce mismatch');
+            $('#warningMessage').text('Unexpected nonce returned in id token');
+            $('#warningDiv').show();
+
+          }
 
         } else {
 
           // missing accessToken or idToken for this individual
 
-          console.log('No existing user session or token found');
+          console.log('No token found in URL Fragment');
 
           // was the user just sent here from p14c?
 
           if (flowId) {
 
-            // url has a flowId - so they just arrived from p14c
+            // yes, url has a flowId - so they just arrived from p14c
+
             console.log('flowId found in url');
-            console.log('User already bootstrapped through p14c');
             console.log('Performing p14c ajax query to determine next step');
             let flowUrl = authUrl + '/' + environmentId + '/flows/' + flowId;
             exJax('GET', flowUrl, nextStep, 'application/json');
 
           } else {
 
-            // url does not have a flowId.  and we don't have a session.  send them authorizationUrl
+            // no, url does not have a flowId.  and we don't have a session.  send them authorizationUrl
+
             console.log('No flowId found in url');
             console.log('Redirecting to p14c to bootstrap session');
-            window.location.replace(authorizationUrl);
+
+            doLogin();
 
           }
 
