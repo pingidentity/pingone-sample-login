@@ -22,8 +22,10 @@
 </head>
 
 <body>
+
   <!-- page container -->
   <div class="container-fluid">
+
     <!-- navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/">Home</a>
@@ -49,7 +51,35 @@
 
     <section class="testimonials">
 
+      <!-- login div -->
       <div class="container collapse" id="loginDiv">
+        <h2 class="mb-5">Sign In</h2>
+
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="username">Email Address</label>
+              <input type="text" class="form-control" name="username" id="username" placeholder="user@example.com"
+                autocomplete="username" autofocus />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" name="password" id="password" placeholder="****************"
+                autocomplete="current-password" required />
+            </div>
+            <div class="form-group collapse">
+              <input type="text" class="form-control" name="validatePasswordUrl" id="validatePasswordUrl" readonly />
+            </div>
+          </div>
+          <a href="#" class="btn btn-primary" onclick="javascript:validatePassword();">Sign In</a>
+        </form>
+      </div>
+      <!-- /login div -->
+
+      <!-- identifier div -->
+      <div class="container collapse" id="identifierDiv">
         <div class="row">
           <div class="col-md-8">
             <h2 class="mb-4">Sign In</h2>
@@ -60,29 +90,35 @@
             <form>
               <div class="form-group">
                 <label for="username">Email Address</label>
-                <input type="text" class="form-control" name="username" id="username" placeholder="user@example.com"
-                  autocomplete="username" autofocus />
-              </div>
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="****************"
-                  autocomplete="current-password" required />
+                <input type="text" class="form-control" name="identifier" id="identifier" placeholder="user@example.com"
+                  autocomplete="identifier" autofocus />
               </div>
               <div class="form-group collapse">
-                <input type="text" class="form-control" name="validatePasswordUrl" id="validatePasswordUrl" readonly />
+                <input type="text" class="form-control" name="validateIdentifierUrl" id="validateIdentifierUrl"
+                  readonly />
               </div>
-              <div class="form-group collapse">
-                <input type="text" class="form-control" name="validatePasswordContentType"
-                  id="validatePasswordContentType" readonly />
-              </div>
-              <a href="#" class="btn btn-primary" onclick="javascript:validatePassword();">Sign In</a>
+              <a href="#" class="btn btn-primary" onclick="javascript:validateIdentifier();">Sign In</a>
             </form>
           </div>
           <!-- column -->
         </div>
         <!-- row -->
       </div>
+      <!-- /identifier div -->
 
+      <!-- device select div -->
+      <div class="container collapse" id="deviceSelectDiv">
+        <h2 class="mb-5">Select Device</h2>
+        <div class="form-row">
+          <div class="col-md-6" id="devicePayloadDiv"></div>
+          <div class="collapse">
+            <input type="text" class="form-control" name="deviceSelectUrl" id="deviceSelectUrl" readonly />
+          </div>
+        </div>
+      </div>
+      <!-- /device select div -->
+
+      <!-- otp div -->
       <div class="container collapse" id="otpDiv">
         <h2 class="mb-5">Multifactor Authentication</h2>
         <form>
@@ -94,36 +130,27 @@
             <div class="form-group col-md-12 collapse">
               <input type="text" class="form-control" name="validateOtpUrl" id="validateOtpUrl" readonly />
             </div>
-            <div class="form-group col-md-12 collapse">
-              <input type="text" class="form-control" name="validateOtpContentType" id="validateOtpContentType"
-                readonly />
-            </div>
           </div>
           <a href="#" class="btn btn-primary" onclick="javascript:validateOtp();">Sign In</a>
         </form>
       </div>
+      <!-- /otp div -->
 
+      <!-- change password div -->
       <div class="container collapse" id="passwordDiv">
-        <div class="row">
-          <div class="col">
-            <h2 class="mb-4">New Password</h2>
-          </div>
-        </div>
+        <h2 class="mb-5">New Password</h2>
+
         <div class="row">
           <div class="col">
             <form>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="changePassword">Password</label>
-                  <input type="password" class="form-control" name="changePassword" id="changePassword"
+                  <label for="newPassword">Password</label>
+                  <input type="password" class="form-control" name="newPassword" id="newPassword"
                     placeholder="****************" autofocus required />
                 </div>
                 <div class="form-group col-md-12 collapse">
                   <input type="text" class="form-control" name="changePasswordUrl" id="changePasswordUrl" readonly />
-                </div>
-                <div class="form-group col-md-12 collapse">
-                  <input type="text" class="form-control" name="changePasswordContentType"
-                    id="changePasswordContentType" readonly />
                 </div>
               </div>
               <a href="#" class="btn btn-primary" onclick="javascript:changePassword();">Change Password</a>
@@ -140,7 +167,9 @@
           </div>
         </div>
       </div>
+      <!-- /change password div -->
 
+      <!-- warning div -->
       <div class="container collapse" id="warningDiv">
         <div class="row">
           <div class="col-md-8">
@@ -153,15 +182,12 @@
           </div>
         </div>
       </div>
+      <!-- /warning div -->
 
-      <!-- /Login Form -->
     </section>
 
   </div>
   <!-- /content column -->
-
-  <!-- /Login Form -->
-  </section>
 
   <!-- Footer -->
   <footer class="footer bg-light">
@@ -190,7 +216,10 @@
   <script>
 
     // some housekeeping variables
+
     const flowId = getUrlParameter('flowId');
+
+    // interactive password change feedback
 
     const regexLower = new RegExp('(?=.*[a-z])');
     const regexUpper = new RegExp('(?=.*[A-Z])');
@@ -198,8 +227,8 @@
     const regexSpecial = new RegExp('(?=.*[~!@#\$%\^&\*\)\(\|\;\:\,\.\?\_\-])');
     const regexLength = new RegExp('(?=.{8,})');
 
-    $('#changePassword').on('input', function (e) {
-      let thisPassword = $('#changePassword').val();
+    $('#newPassword').on('input', function (e) {
+      let thisPassword = $('#newPassword').val();
 
       if (regexLower.test(thisPassword)) {
         $('#lowercase').removeClass('text-primary');
@@ -272,9 +301,19 @@
 
     function changePassword() {
       console.log('changePassword called');
-      let payload = JSON.stringify({ currentPassword: $('#password').val(), newPassword: $('#changePassword').val() });
+      let payload = JSON.stringify({ currentPassword: $('#password').val(), newPassword: $('#newPassword').val() });
       let url = $('#changePasswordUrl').val();
-      let contenttype = $('#changePasswordContentType').val();
+      let contenttype = 'application/vnd.pingidentity.password.reset+json';
+      exJax('POST', url, nextStep, contenttype, payload);
+    }
+
+    // device selector button event
+
+    function deviceSelect(objButton) {
+      console.log('deviceSelect called');
+      let payload = JSON.stringify({ device: { id: objButton.value } });
+      let url = $('#deviceSelectUrl').val();
+      let contenttype = 'application/vnd.pingidentity.device.select+json';
       exJax('POST', url, nextStep, contenttype, payload);
     }
 
@@ -284,9 +323,25 @@
       console.log('validatePassword called');
       let payload = JSON.stringify({ username: $('#username').val(), password: $('#password').val() });
       let url = $('#validatePasswordUrl').val();
-      let contenttype = $('#validatePasswordContentType').val();
+      let contenttype = 'application/vnd.pingidentity.usernamePassword.check+json';
       exJax('POST', url, nextStep, contenttype, payload);
     }
+
+    // validate identifier function
+
+    function validateIdentifier() {
+      console.log('validateIdentifier called');
+
+      // let unverifiedUsername = $('#identifier').val();
+      // console.log(unverifiedUsername);
+      // Cookies.set('unverifiedUsername', unverifiedUsername, { domain: cookieDomain });
+
+      let payload = JSON.stringify({ username: 'michael@example.com' });
+      let url = $('#validateIdentifierUrl').val();
+      let contenttype = 'application/vnd.pingidentity.user.lookup+json';
+      exJax('POST', url, nextStep, contenttype, payload);
+    }
+
 
     // validate one time passcode function
 
@@ -294,7 +349,7 @@
       console.log('validateOtp called');
       let payload = JSON.stringify({ otp: $('#otp').val() });
       let url = $('#validateOtpUrl').val();
-      let contenttype = $('#validateOtpContentType').val();
+      let contenttype = 'application/vnd.pingidentity.otp.check+json';
       exJax('POST', url, nextStep, contenttype, payload);
     }
 
@@ -304,40 +359,62 @@
       status = data.status;
       console.log('Parsing json to determine next step: ' + status);
 
+      $('#warningTitle').text('');
+      $('#warningMessage').text('');
+
+      $('#warningDiv').hide();
+      $('#loginDiv').hide();
+      $('#identifierDiv').hide();
+      $('#otpDiv').hide();
+      $('#passwordDiv').hide();
+      $('#deviceSelectDiv').hide();
+
       switch (status) {
         case 'USERNAME_PASSWORD_REQUIRED':
           console.log('Rendering login form');
           $('#loginDiv').show();
-          $('#otpDiv').hide();
           $('#validatePasswordUrl').val(data._links['usernamePassword.check'].href);
-          $('#validatePasswordContentType').val('application/vnd.pingidentity.usernamePassword.check+json');
           break;
         case 'PASSWORD_REQUIRED':
           console.log('Rendering login form');
           $('#loginDiv').show();
-          $('#otpDiv').hide();
           $('#validatePasswordUrl').val(data._embedded.requiredStep._links['usernamePassword.check'].href);
-          $('#validatePasswordContentType').val('application/vnd.pingidentity.usernamePassword.check+json');
+          break;
+        case 'SIGN_ON_REQUIRED':
+          console.log('Rendering identifier form');
+          $('#identifierDiv').show();
+          $('#validateIdentifierUrl').val(data._links['user.lookup'].href);
           break;
         case 'OTP_REQUIRED':
           console.log('Rendering otp form');
-          $('#loginDiv').hide();
           $('#otpDiv').show();
           $('#validateOtpUrl').val(data._links['otp.check'].href);
-          $('#validateOtpContentType').val('application/vnd.pingidentity.otp.check+json')
           break;
         case 'MUST_CHANGE_PASSWORD':
           console.log('Rendering password form');
-          $('#loginDiv').hide();
           $('#passwordDiv').show();
           $('#changePasswordUrl').val(data._links['password.reset'].href);
-          $('#changePasswordContentType').val('application/vnd.pingidentity.password.reset+json')
+          break;
+        case 'DEVICE_SELECTION_REQUIRED':
+          console.log('Rendering device selection');
+          $('#deviceSelectUrl').val(data._links['device.select'].href);
+          let devices = data._embedded.devices;
+          for (let i = 0; i < devices.length; i++) {
+            var newButton;
+            switch (devices[i].type) {
+              case 'EMAIL':
+                newButton = '<button class="btn btn-secondary mb-2" onclick="deviceSelect(this);" value="' + devices[i].id + '">EMAIL (' + devices[i].email + ')</button><br />';
+                break;
+              case 'SMS':
+                newButton = '<button class="btn btn-secondary mb-2" onclick="deviceSelect(this);" value="' + devices[i].id + '">SMS (' + devices[i].phone + ')</button><br />';
+                break;
+            }
+            $('#devicePayloadDiv').append(newButton);
+          }
+          $('#deviceSelectDiv').show();
           break;
         case 'COMPLETED':
           console.log('completed authentication successfully');
-          $('#warningTitle').text('');
-          $('#warningMessage').text('');
-          $('#warningDiv').hide();
           console.log('Redirecting user');
           window.location.replace(data.resumeUrl);
           break;
@@ -363,8 +440,6 @@
         // yes, user already has a session
 
         console.log('Existing session found.  Redirecting to langingUrl');
-        console.log('uuid (' + Cookies.get('uuid', { domain: cookieDomain }) + ')');
-        console.log('accessToken (' + Cookies.get('accessToken', { domain: cookieDomain }) + ')');
 
         // redirect to the landingUrl
 
@@ -402,14 +477,10 @@
           // yes, we got an access token from the url fragment
 
           console.log('Access token received from URL fragment');
-          console.log('accessToken: ' + accessToken);
-          console.log('idToken: ' + idToken);
 
           // parse id token for subject and other details
 
           idPayload = parseJwt(idToken);
-
-          console.log(idPayload);
 
           // does requested nonce match returned nonce?
 
