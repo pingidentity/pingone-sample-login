@@ -58,51 +58,45 @@
         <form>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="username">Email Address</label>
-              <input type="text" class="form-control" name="username" id="username" placeholder="user@example.com"
+              <!-- <label for="username">Email Address</label> -->
+              <input type="email" class="form-control" name="username" id="username" placeholder="Email Address"
                 autocomplete="username" autofocus />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" id="password" placeholder="****************"
+              <!-- <label for="password">Password</label> -->
+              <input type="password" class="form-control" name="password" id="password" placeholder="Password"
                 autocomplete="current-password" required />
             </div>
             <div class="form-group collapse">
               <input type="text" class="form-control" name="validatePasswordUrl" id="validatePasswordUrl" readonly />
             </div>
           </div>
-          <a href="#" class="btn btn-primary" onclick="javascript:validatePassword();">Sign In</a>
+          <div class="mt-5" id="signOnPayload">
+            <a href="#" class="btn btn-primary btn-lg mb-2" onclick="javascript:validatePassword();">Sign In</a>
+          </div>
         </form>
       </div>
       <!-- /login div -->
 
       <!-- identifier div -->
       <div class="container collapse" id="identifierDiv">
-        <div class="row">
-          <div class="col-md-8">
-            <h2 class="mb-4">Sign In</h2>
+        <h2 class="mb-5">Sign In</h2>
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="email" class="form-control" name="identifier" id="identifier" placeholder="Email Address"
+                autocomplete="identifier" autofocus />
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-8">
-            <form>
-              <div class="form-group">
-                <label for="username">Email Address</label>
-                <input type="text" class="form-control" name="identifier" id="identifier" placeholder="user@example.com"
-                  autocomplete="identifier" autofocus />
-              </div>
-              <div class="form-group collapse">
-                <input type="text" class="form-control" name="validateIdentifierUrl" id="validateIdentifierUrl"
-                  readonly />
-              </div>
-              <a href="#" class="btn btn-primary" onclick="javascript:validateIdentifier();">Sign In</a>
-            </form>
+          <div class="form-row collapse">
+            <div class="form-group col-md-6"> <input type="text" class="form-control" name="validateIdentifierUrl"
+                id="validateIdentifierUrl" readonly />
+            </div>
           </div>
-          <!-- column -->
-        </div>
-        <!-- row -->
+          <a href="#" class="mt-5 btn btn-primary btn-lg" onclick="javascript:validateIdentifier();">Sign In</a>
+        </form>
       </div>
       <!-- /identifier div -->
 
@@ -124,40 +118,58 @@
         <form>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="username">One Time Passcode</label>
-              <input type="text" class="form-control" name="otp" id="otp" placeholder="ex 5551212" autofocus required />
+              <input type="text" class="form-control" name="otp" id="otp" placeholder="One Time Passcode" autofocus
+                required />
             </div>
             <div class="form-group col-md-12 collapse">
               <input type="text" class="form-control" name="validateOtpUrl" id="validateOtpUrl" readonly />
             </div>
           </div>
-          <a href="#" class="btn btn-primary" onclick="javascript:validateOtp();">Sign In</a>
+          <a href="#" class="btn btn-primary btn-lg mt-5" onclick="javascript:validateOtp();">Sign In</a>
         </form>
       </div>
       <!-- /otp div -->
 
+      <!-- user verification div -->
+      <div class="container collapse" id="userVerifyDiv">
+        <h2 class="mb-5">Thank You!</h2>
+        <p class="lead">We've sent a verification code to your email address.
+          Please verify your email to finish setting up your account.</p>
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" name="verificationCode" id="verificationCode"
+                placeholder="One Time Passcode" autofocus required />
+            </div>
+            <div class="form-group col-md-12 collapse">
+              <input type="text" class="form-control" name="userVerifyUrl" id="userVerifyUrl" readonly />
+            </div>
+          </div>
+          <a href="#" class="btn btn-primary btn-lg" onclick="javascript:userVerify();">Sign In</a>
+        </form>
+      </div>
+      <!-- /user verification div -->
+
       <!-- change password div -->
       <div class="container collapse" id="passwordDiv">
         <h2 class="mb-5">New Password</h2>
-
         <div class="row">
           <div class="col">
             <form>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="newPassword">Password</label>
                   <input type="password" class="form-control" name="newPassword" id="newPassword"
-                    placeholder="****************" autofocus required />
+                    placeholder="New Password" autofocus required />
                 </div>
                 <div class="form-group col-md-12 collapse">
                   <input type="text" class="form-control" name="changePasswordUrl" id="changePasswordUrl" readonly />
                 </div>
               </div>
-              <a href="#" class="btn btn-primary" onclick="javascript:changePassword();">Change Password</a>
+              <a href="#" class="btn btn-primary btn-lg mt-5" onclick="javascript:changePassword();">Change Password</a>
             </form>
           </div>
           <div class="col">
-            <ul class="mt-4">
+            <ul>
               <li id="length" class="text-primary">The password must be at least 8 characters in length</li>
               <li id="uppercase" class="text-primary">The password must have one or more upper case letters</li>
               <li id="lowercase" class="text-primary">The password must have one or more lower case letters</li>
@@ -168,6 +180,28 @@
         </div>
       </div>
       <!-- /change password div -->
+
+      <!-- account linking div -->
+      <div class="container collapse" id="accountLinkDiv">
+        <h2 class="mb-5">Create Your Profile</h2>
+        <p class="lead">Please confirm your email address</p>
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <!-- <label for="username">Email Address</label> -->
+              <input type="email" class="form-control" name="accountLinkUsername" id="accountLinkUsername"
+                placeholder="Email Address" autocomplete="username" autofocus />
+            </div>
+          </div>
+          <div class="form-group collapse">
+            <input type="text" class="form-control" name="accountLinkUrl" id="accountLinkUrl" readonly />
+          </div>
+          <div id="signOnPayload">
+            <a href="#" class="btn btn-primary btn-lg mb-2" onclick="javascript:accountLink();">Sign In</a>
+          </div>
+        </form>
+      </div>
+      <!-- /account linking div -->
 
       <!-- warning div -->
       <div class="container collapse" id="warningDiv">
@@ -186,22 +220,20 @@
 
     </section>
 
-  </div>
-  <!-- /content column -->
-
-  <!-- Footer -->
-  <footer class="footer bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-          <p class="text-muted small mb-4 mb-lg-0">&copy; Ping Identity 2019. All Rights Reserved.</p>
+    <!-- Footer -->
+    <footer class="footer bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+            <p class="text-muted small mb-4 mb-lg-0">&copy; Ping Identity 2019. All Rights Reserved.</p>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
-  <!-- /Footer -->
+    </footer>
+    <!-- /Footer -->
+
   </div>
-  <!-- /page congainer -->
+  <!-- /page container -->
 
   <!-- jquery and bootstrap js libraries -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -331,17 +363,11 @@
 
     function validateIdentifier() {
       console.log('validateIdentifier called');
-
-      // let unverifiedUsername = $('#identifier').val();
-      // console.log(unverifiedUsername);
-      // Cookies.set('unverifiedUsername', unverifiedUsername, { domain: cookieDomain });
-
-      let payload = JSON.stringify({ username: 'michael@example.com' });
+      let payload = JSON.stringify({ username: $('#identifier').val() });
       let url = $('#validateIdentifierUrl').val();
       let contenttype = 'application/vnd.pingidentity.user.lookup+json';
       exJax('POST', url, nextStep, contenttype, payload);
     }
-
 
     // validate one time passcode function
 
@@ -353,6 +379,27 @@
       exJax('POST', url, nextStep, contenttype, payload);
     }
 
+    // link account function
+
+    function accountLink() {
+      console.log('accountLink called');
+      let payload = JSON.stringify({ username: $('#accountLinkUsername').val(), email: $('#accountLinkUsername').val() });
+      let url = $('#accountLinkUrl').val();
+      let contenttype = 'application/vnd.pingidentity.user.register+json';
+      exJax('POST', url, nextStep, contenttype, payload);
+    }
+
+    // account verify function
+
+    function userVerify() {
+      console.log('userVerify called');
+      let payload = JSON.stringify({ verificationCode: $('#verificationCode').val() });
+      let url = $('#userVerifyUrl').val();
+      let contenttype = 'application/vnd.pingidentity.user.verify+json';
+      exJax('POST', url, nextStep, contenttype, payload);
+    }
+
+
     // nextStep function looks at JSON status field to render appropriate form
 
     function nextStep(data) {
@@ -362,12 +409,16 @@
       $('#warningTitle').text('');
       $('#warningMessage').text('');
 
+      // hide all of the different form divs
+
       $('#warningDiv').hide();
       $('#loginDiv').hide();
       $('#identifierDiv').hide();
       $('#otpDiv').hide();
       $('#passwordDiv').hide();
       $('#deviceSelectDiv').hide();
+      $('#accountLinkDiv').hide();
+      $('#userVerifyDiv').hide();
 
       switch (status) {
         case 'USERNAME_PASSWORD_REQUIRED':
@@ -384,6 +435,11 @@
           console.log('Rendering identifier form');
           $('#identifierDiv').show();
           $('#validateIdentifierUrl').val(data._links['user.lookup'].href);
+          break;
+        case 'VERIFICATION_CODE_REQUIRED':
+          console.log('Rendering verification form');
+          $('#userVerifyDiv').show();
+          $('#userVerifyUrl').val(data._links['user.verify'].href);
           break;
         case 'OTP_REQUIRED':
           console.log('Rendering otp form');
@@ -403,25 +459,61 @@
             var newButton;
             switch (devices[i].type) {
               case 'EMAIL':
-                newButton = '<button class="btn btn-secondary mb-2" onclick="deviceSelect(this);" value="' + devices[i].id + '">EMAIL (' + devices[i].email + ')</button><br />';
+                newButton = '<button class="btn btn-secondary btn-lg mb-2" onclick="deviceSelect(this);" value="' + devices[i].id + '">EMAIL (' + devices[i].email + ')</button><br />';
                 break;
               case 'SMS':
-                newButton = '<button class="btn btn-secondary mb-2" onclick="deviceSelect(this);" value="' + devices[i].id + '">SMS (' + devices[i].phone + ')</button><br />';
+                newButton = '<button class="btn btn-secondary btn-lg mb-2" onclick="deviceSelect(this);" value="' + devices[i].id + '">SMS (' + devices[i].phone + ')</button><br />';
                 break;
             }
             $('#devicePayloadDiv').append(newButton);
           }
           $('#deviceSelectDiv').show();
           break;
+        case 'ACCOUNT_LINKING_REQUIRED':
+          console.log('Rendering account linking form');
+          $('#accountLinkUrl').val(data._links['user.register'].href);
+          $('#accountLinkUsername').val(data.attributes.username);
+          $('#accountLinkDiv').show();
+          break;
         case 'COMPLETED':
-          console.log('completed authentication successfully');
+          console.log('Completed authentication successfully');
           console.log('Redirecting user');
           window.location.replace(data.resumeUrl);
+          break;
+        case 'FAILED':
+          console.log('Authentication flow failure');
+          $('#warningTitle').text('Unrecoverable error');
+          $('#warningMessage').text(data.error.message);
+          $('#warningDiv').show();
           break;
         default:
           console.log('Unexpected outcome');
           break;
       }
+
+      // check for identity providers
+
+      if (data._embedded.socialProviders) {
+
+        // yes we have external identity providers
+
+        let socialProviders = data._embedded.socialProviders;
+
+        // iterate through collection of identity providers
+
+        for (let i = 0; i < socialProviders.length; i++) {
+
+          // create a button for each one
+
+          newButton = '<a href="' + socialProviders[i]._links.authenticate.href +
+            '" class="btn btn-secondary btn-lg mb-2 mr-1">Sign In With ' +
+            socialProviders[i].name + '</a>';
+          $('#signOnPayload').append(newButton);
+
+        }
+
+      }
+
     }
 
     // begin process
