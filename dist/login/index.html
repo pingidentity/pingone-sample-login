@@ -399,7 +399,6 @@
       exJax('POST', url, nextStep, contenttype, payload);
     }
 
-
     // nextStep function looks at JSON status field to render appropriate form
 
     function nextStep(data) {
@@ -429,7 +428,7 @@
         case 'PASSWORD_REQUIRED':
           console.log('Rendering login form');
           $('#loginDiv').show();
-          $('#validatePasswordUrl').val(data._embedded.requiredStep._links['usernamePassword.check'].href);
+          $('#validatePasswordUrl').val(data._links['usernamePassword.check'].href);
           break;
         case 'SIGN_ON_REQUIRED':
           console.log('Rendering identifier form');
@@ -496,6 +495,8 @@
       if (data._embedded.socialProviders) {
 
         // yes we have external identity providers
+
+        console.log('Social providers present');
 
         let socialProviders = data._embedded.socialProviders;
 
