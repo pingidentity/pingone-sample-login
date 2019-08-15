@@ -349,6 +349,15 @@
       exJax('POST', url, nextStep, contenttype, payload);
     }
 
+    // get push status
+
+    function getPushStatus(url) {
+      console.log('getPushStatus called');
+      setTimeout(function () {
+        exJax('GET', url, nextStep, 'application/json');
+      }, 2000);
+    }
+
     // validate password function
 
     function validatePassword() {
@@ -463,6 +472,9 @@
               case 'SMS':
                 newButton = '<button class="btn btn-secondary btn-lg mb-2" onclick="deviceSelect(this);" value="' + devices[i].id + '">SMS (' + devices[i].phone + ')</button><br />';
                 break;
+              case 'MOBILE':
+                newButton = '<button class="btn btn-secondary btn-lg mb-2" onclick="deviceSelect(this);" value="' + devices[i].id + '">PUSH (' + devices[i].model.marketingName + ')</button><br />';
+                break;
             }
             $('#devicePayloadDiv').append(newButton);
           }
@@ -473,6 +485,23 @@
           $('#accountLinkUrl').val(data._links['user.register'].href);
           $('#accountLinkUsername').val(data.attributes.username);
           $('#accountLinkDiv').show();
+          break;
+        case 'PUSH_CONFIRMATION_REQUIRED':
+          console.log('Waiting for user to approve push');
+          $('#warningTitle').text('Authenticating');
+          for (let i = 0; i < data._embedded.devices.length; i++) {
+            if (data._embedded.devices[i].id == data.selectedDevice.id) {
+              $('#warningMessage').text('Approval request sent to ' + data._embedded.devices[i].model.marketingName);
+            }
+          }
+          $('#warningDiv').show();
+          getPushStatus(data._links.flow.href);
+          break;
+        case 'PUSH_CONFIRMATION_TIMED_OUT':
+          console.log('Push confirmation timed out');
+          $('#warningTitle').text('Authentication failure');
+          $('#warningMessage').text('Device approval timed out');
+          $('#warningDiv').show();
           break;
         case 'COMPLETED':
           console.log('Completed authentication successfully');
