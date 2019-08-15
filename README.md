@@ -1,5 +1,15 @@
 # PingOne for Customers Sample Login
-Provides an example login application for use with PingOne for Customers.  This sample application is written in HTML and JavaScript and leverages JQuery, Bootstrap and js-cookie
+Provides an example login application for use with PingOne for Customers.  Included user dialogs:
+
+* Username and Password
+* Passwordless
+* One Time Passcodes
+* Mobile Push Notifications
+* Expired Password Changes
+* External Identity Providers
+* Account Linking
+
+This sample application is written in HTML and JavaScript and leverages JQuery, Bootstrap and js-cookie.  It leverages the PingOne for Customers Flow APIs (https://apidocs.pingidentity.com/pingone/customer/v1/api/auth/p1-a_Flows/).
 
 ## Quick Start
 
@@ -11,7 +21,7 @@ Provides an example login application for use with PingOne for Customers.  This 
 
 * dist/index.html         - Landing page for anonymous or authenticated users
 * dist/js/auth.js         - Shared JavaScript with configuratioin for your P14C tenant
-* dist/login/index.html   - Sample login application
+* dist/login/index.html   - Sample login application with different user interactions
 * dist/logout/index.html  - Logout mechanism
 
 ## Getting Started
