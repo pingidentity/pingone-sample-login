@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- bootstrap core css -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <!-- local css -->
   <link href="../css/stylesheet.css" rel="stylesheet" />
@@ -130,6 +131,32 @@
       </div>
       <!-- /otp div -->
 
+      <!-- device push div -->
+      <div class="container collapse" id="devicePushDiv">
+        <div class="row">
+          <div class="col-md-8">
+            <h2 class="mb-4">Authenticating</h2>
+          </div>
+        </div>
+        <div class="row mt-5 mb-5">
+          <div class="spinner-grow text-success" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-success" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-success" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <p class="lead" id="devicePushMessage">&nbsp;</p>
+          </div>
+        </div>
+      </div>
+      <!-- /device push div -->
+
       <!-- user verification div -->
       <div class="container collapse" id="userVerifyDiv">
         <h2 class="mb-5">Thank You!</h2>
@@ -237,7 +264,9 @@
 
   <!-- jquery and bootstrap js libraries -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 
   <!-- JavaScript Cookie plugin -->
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
@@ -343,6 +372,8 @@
 
     function deviceSelect(objButton) {
       console.log('deviceSelect called');
+      $('#deviceSelectDiv').hide();
+      $('#devicePushDiv').show();
       let payload = JSON.stringify({ device: { id: objButton.value } });
       let url = $('#deviceSelectUrl').val();
       let contenttype = 'application/vnd.pingidentity.device.select+json';
@@ -467,13 +498,16 @@
             var newButton;
             switch (devices[i].type) {
               case 'EMAIL':
-                newButton = '<button class="btn btn-secondary btn-lg mb-2" onclick="deviceSelect(this);" value="' + devices[i].id + '">EMAIL (' + devices[i].email + ')</button><br />';
+                newButton = '<button class="btn btn-secondary btn-lg mb-2" onclick="deviceSelect(this);" value="' +
+                  devices[i].id + '">EMAIL (' + devices[i].email + ')</button><br />';
                 break;
               case 'SMS':
-                newButton = '<button class="btn btn-secondary btn-lg mb-2" onclick="deviceSelect(this);" value="' + devices[i].id + '">SMS (' + devices[i].phone + ')</button><br />';
+                newButton = '<button class="btn btn-secondary btn-lg mb-2" onclick="deviceSelect(this);" value="' +
+                  devices[i].id + '">SMS (' + devices[i].phone + ')</button><br />';
                 break;
               case 'MOBILE':
-                newButton = '<button class="btn btn-secondary btn-lg mb-2" onclick="deviceSelect(this);" value="' + devices[i].id + '">PUSH (' + devices[i].model.marketingName + ')</button><br />';
+                newButton = '<button class="btn btn-secondary btn-lg mb-2" onclick="deviceSelect(this);" value="' +
+                  devices[i].id + '">PUSH (' + devices[i].model.marketingName + ')</button><br />';
                 break;
             }
             $('#devicePayloadDiv').append(newButton);
@@ -488,13 +522,11 @@
           break;
         case 'PUSH_CONFIRMATION_REQUIRED':
           console.log('Waiting for user to approve push');
-          $('#warningTitle').text('Authenticating');
           for (let i = 0; i < data._embedded.devices.length; i++) {
             if (data._embedded.devices[i].id == data.selectedDevice.id) {
-              $('#warningMessage').text('Approval request sent to ' + data._embedded.devices[i].model.marketingName);
+              $('#devicePushMessage').text('Approval request sent to ' + data._embedded.devices[i].model.marketingName);
             }
           }
-          $('#warningDiv').show();
           getPushStatus(data._links.flow.href);
           break;
         case 'PUSH_CONFIRMATION_TIMED_OUT':
