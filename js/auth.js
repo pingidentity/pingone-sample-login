@@ -40,6 +40,8 @@ function doLogin() {
     '&nonce=' +
     nonce;
 
+  console.log(authorizationUrl);
+  
   window.localStorage.setItem('nonce', nonce);
 
   // window.localStorage.setItem('nonce', 'bogus nonce that does not match');
