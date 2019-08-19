@@ -59,14 +59,12 @@
         <form>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <!-- <label for="username">Email Address</label> -->
               <input type="email" class="form-control" name="username" id="username" placeholder="Email Address"
                 autocomplete="username" autofocus />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <!-- <label for="password">Password</label> -->
               <input type="password" class="form-control" name="password" id="password" placeholder="Password"
                 autocomplete="current-password" required />
             </div>
@@ -157,6 +155,45 @@
       </div>
       <!-- /device push div -->
 
+      <!-- account registration div -->
+      <div class="container collapse" id="accountRegDiv">
+        <h2 class="mb-5">Create Your Profile</h2>
+        <div class="row">
+          <div class="col">
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <input type="email" class="form-control" name="accountRegUsername" id="accountRegUsername"
+                    placeholder="Email Address" autofocus />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <input type="password" class="form-control" name="accountRegPassword" id="accountRegPassword"
+                    placeholder="Password" />
+                </div>
+              </div>
+              <div class="form-group collapse">
+                <input type="text" class="form-control" name="accountLinkUrl" id="accountLinkUrl" readonly />
+              </div>
+              <div class="mt-5" id="signOnPayload">
+                <a href="#" class="btn btn-primary btn-lg mb-2" onclick="javascript:registerAccount();">Create</a>
+              </div>
+            </form>
+          </div>
+          <div class="col">
+            <ul>
+              <li id="length" class="text-primary">The password must be at least 8 characters in length</li>
+              <li id="uppercase" class="text-primary">The password must have one or more upper case letters</li>
+              <li id="lowercase" class="text-primary">The password must have one or more lower case letters</li>
+              <li id="numeric" class="text-primary">The password must have one or more number</li>
+              <li id="special" class="text-primary">The password must have one or more special characters</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /account registration div -->
+
       <!-- user verification div -->
       <div class="container collapse" id="userVerifyDiv">
         <h2 class="mb-5">Thank You!</h2>
@@ -215,7 +252,6 @@
         <form>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <!-- <label for="username">Email Address</label> -->
               <input type="email" class="form-control" name="accountLinkUsername" id="accountLinkUsername"
                 placeholder="Email Address" autocomplete="username" autofocus />
             </div>
@@ -290,6 +326,40 @@
 
     $('#newPassword').on('input', function (e) {
       let thisPassword = $('#newPassword').val();
+
+      if (regexLower.test(thisPassword)) {
+        $('#lowercase').removeClass('text-primary');
+      } else {
+        $('#lowercase').addClass('text-primary');
+      }
+
+      if (regexUpper.test(thisPassword)) {
+        $('#uppercase').removeClass('text-primary');
+      } else {
+        $('#uppercase').addClass('text-primary');
+      }
+
+      if (regexNumeric.test(thisPassword)) {
+        $('#numeric').removeClass('text-primary');
+      } else {
+        $('#numeric').addClass('text-primary');
+      }
+
+      if (regexSpecial.test(thisPassword)) {
+        $('#special').removeClass('text-primary');
+      } else {
+        $('#special').addClass('text-primary');
+      }
+
+      if (regexLength.test(thisPassword)) {
+        $('#length').removeClass('text-primary');
+      } else {
+        $('#length').addClass('text-primary');
+      }
+    });
+
+    $('#accountRegPassword').on('input', function (e) {
+      let thisPassword = $('#accountRegPassword').val();
 
       if (regexLower.test(thisPassword)) {
         $('#lowercase').removeClass('text-primary');
@@ -419,6 +489,24 @@
       exJax('POST', url, nextStep, contenttype, payload);
     }
 
+    // show account registration form
+
+    function showRegistration() {
+      console.log('showRegistration called');
+      $('#loginDiv').hide();
+      $('#accountRegDiv').show();
+    }
+
+    // ajax call to register new account
+
+    function registerAccount() {
+      console.log('registerAccount called');
+      let payload = JSON.stringify({ username: $('#accountRegUsername').val(), email: $('#accountRegUsername').val(), password: $('#accountRegPassword').val(), name: { given: 'Michael' } });
+      let url = $('#validatePasswordUrl').val();
+      let contenttype = 'application/vnd.pingidentity.user.register+json';
+      exJax('POST', url, nextStep, contenttype, payload);
+    }
+
     // link account function
 
     function accountLink() {
@@ -458,6 +546,7 @@
       $('#deviceSelectDiv').hide();
       $('#accountLinkDiv').hide();
       $('#userVerifyDiv').hide();
+      $('#accountRegDiv').hide();
 
       switch (status) {
         case 'USERNAME_PASSWORD_REQUIRED':
@@ -551,7 +640,7 @@
           break;
       }
 
-      // check for identity providers
+      // check for enabled external identity providers
 
       if (data._embedded.socialProviders) {
 
@@ -573,6 +662,21 @@
           $('#signOnPayload').append(newButton);
 
         }
+
+      }
+
+      // check for account registration is enabled
+
+      if (data._links['user.register'].href) {
+
+        // yes the authentication policy has registration enabled
+
+        console.log('Account registration is enabled');
+
+        // create a registration button
+
+        newButton = '<a href="#" onclick="showRegistration();" class="btn btn-success btn-lg mb-2 mr-1">Create Account</a>';
+        $('#signOnPayload').append(newButton);
 
       }
 
