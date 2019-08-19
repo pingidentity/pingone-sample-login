@@ -24,6 +24,7 @@ if (!clientId || !environmentId) {
 // doLogin function: generates and stores nonce, redirects to authorization request url
 
 function doLogin() {
+  console.log('doLogin called');
   let nonce = generateNonce(60);
   let authorizationUrl =
     authUrl +
