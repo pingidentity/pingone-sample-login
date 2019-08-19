@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- local css -->
+  <link href="css/stylesheet.css" rel="stylesheet" />
+
+  <!-- Custom fonts for this template -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+    rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+    type="text/css" />
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+</head>
+
+<body>
+
+  <!-- page container -->
+  <div class="container-fluid">
+
+    <!-- navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-uppercase" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link d-none btn btn-primary" id="signOnButton"
+              onclick="doLogin();">Login</a></li>
+          &nbsp;&nbsp;
+          <li class="nav-item">
+            <a class="nav-link d-none btn btn-primary" id="logoutButton" href="/logout/">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- /navigation -->
+
+    <div class="container">
+      <section class="testimonials">
+
+        <div class="jumbotron">
+          <h1 class="display-4">Welcome</h1>
+          <p class="lead">We are glad that you chose to visit today.</p>
+        </div>
+
+        <div class="alert alert-primary collapse" role="alert" id="accessTokenDiv">
+          Access Token<br>
+          <pre><code id="accessTokenCode"></code></pre>
+        </div>
+
+        <div class="alert alert-success collapse" role="alert" id="idTokenDiv">
+          ID Token<br>
+          <pre><code id="idTokenCode"></code></pre>
+        </div>
+
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+            <p class="text-muted small mb-4 mb-lg-0">&copy; Ping Identity 2019. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- /Footer -->
+
+  </div>
+  <!-- /page container -->
+
+  <!-- jquery and bootstrap js libraries -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <!-- JavaScript Cookie plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+  <!-- local javascript functions -->
+  <script src="js/auth.js"></script>
+
+  <script>
+
+    // begin process
+
+    $(document).ready(function () {
+      console.log("Page ready function");
+
+      // determine if user is already signed in, and show appropriate login/logout buttons
+
+      renderButtonState();
+
+      // show access token if user is logged in
+
+      if (Cookies.get('accessToken', { domain: cookieDomain })) {
+
+        $("#accessTokenDiv").show();
+        $("#accessTokenCode").text(Cookies.get('accessToken', { domain: cookieDomain }));
+
+      }
+
+      if (Cookies.get('idToken', { domain: cookieDomain })) {
+
+        $("#idTokenDiv").show();
+        $("#idTokenCode").text(Cookies.get('idToken', { domain: cookieDomain }));
+
+      }
+
+    });
+  </script>
+
+</body>
+
+</html>
