@@ -29,7 +29,7 @@
 
     <!-- navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="../">Home</a>
+      <a class="navbar-brand" href="/">Home</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -75,6 +75,7 @@
           <div class="mt-5" id="signOnPayload">
             <a href="#" class="btn btn-primary btn-lg mb-2" onclick="javascript:validatePassword();">Sign In</a>
           </div>
+          <div class="mt-5" id="selfServicePayload"></div>
         </form>
       </div>
       <!-- /login div -->
@@ -174,11 +175,13 @@
                 </div>
               </div>
               <div class="form-group collapse">
-                <input type="text" class="form-control" name="accountLinkUrl" id="accountLinkUrl" readonly />
+                <input type="text" class="form-control" name="accountRegUrl" id="accountRegUrl" readonly />
               </div>
               <div class="mt-5" id="signOnPayload">
-                <a href="#" class="btn btn-primary btn-lg mb-2" onclick="javascript:registerAccount();">Create</a>
+                <a href="#" class="btn btn-secondary btn-lg mb-2" onclick="javascript:registerAccount();">Create
+                  Account</a>
               </div>
+              <div class="mt-5" id="selfServicePayload"></div>
             </form>
           </div>
           <div class="col">
@@ -194,25 +197,52 @@
       </div>
       <!-- /account registration div -->
 
-      <!-- user verification div -->
+      <!-- user verification div for new registrations -->
       <div class="container collapse" id="userVerifyDiv">
         <h2 class="mb-5">Thank You!</h2>
-        <p class="lead">We've sent a verification code to your email address.
-          Please verify your email to finish setting up your account.</p>
+        <p class="lead mb-5">We've sent a verification email to your email address. Please verify your email to finish
+          setting up your PingOne account.</p>
         <form>
           <div class="form-row">
             <div class="form-group col-md-6">
               <input type="text" class="form-control" name="verificationCode" id="verificationCode"
-                placeholder="One Time Passcode" autofocus required />
+                placeholder="Verification Code" autofocus required />
             </div>
             <div class="form-group col-md-12 collapse">
               <input type="text" class="form-control" name="userVerifyUrl" id="userVerifyUrl" readonly />
             </div>
           </div>
-          <a href="#" class="btn btn-primary btn-lg" onclick="javascript:userVerify();">Sign In</a>
+          <a href="#" class="btn btn-primary btn-lg mt-5" onclick="javascript:userVerify();">Verify</a>
         </form>
       </div>
       <!-- /user verification div -->
+
+      <!-- account recovery div for forgotten passwords -->
+      <div class="container collapse" id="passwordRecoverDiv">
+        <h2 class="mb-5">Enter New Password</h2>
+        <p class="lead mb-5">If you have an active account with a valid email address, you will receive an email with a
+          recovery code which you may enter here, along with a new password. If you do not have an account or email,
+          please contact your administrator to recover your password.</p>
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" name="passwordRecoverCode" id="passwordRecoverCode"
+                placeholder="Recovery Code" autofocus required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="password" class="form-control" name="passwordRecoverNewPassword"
+                id="passwordRecoverNewPassword" placeholder="New Password" required />
+            </div>
+          </div>
+          <div class="form-group col-md-12 collapse">
+            <input type="text" class="form-control" name="passwordRecoverUrl" id="passwordRecoverUrl" readonly />
+          </div>
+          <a href="#" class="btn btn-primary btn-lg mt-5" onclick="javascript:passwordRecover();">Save</a>
+        </form>
+      </div>
+      <!-- /account verification div -->
 
       <!-- change password div -->
       <div class="container collapse" id="passwordDiv">
@@ -245,10 +275,30 @@
       </div>
       <!-- /change password div -->
 
+      <!-- forgot password div -->
+      <div class="container collapse" id="passwordForgotDiv">
+        <h2 class="mb-5">Account Recovery</h2>
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="email" class="form-control" name="passwordForgotUsername" id="passwordForgotUsername"
+                placeholder="Email Address" autocomplete="username" autofocus />
+            </div>
+          </div>
+          <div class="form-group collapse">
+            <input type="text" class="form-control" name="passwordForgotUrl" id="passwordForgotUrl" readonly />
+          </div>
+          <div class="mt-5" id="signOnPayload">
+            <a href="#" class="btn btn-primary btn-lg mb-2" onclick="javascript:passwordForgot();">Submit</a>
+          </div>
+        </form>
+      </div>
+      <!-- /forgot password div -->
+
       <!-- account linking div -->
       <div class="container collapse" id="accountLinkDiv">
         <h2 class="mb-5">Create Your Profile</h2>
-        <p class="lead">Please confirm your email address</p>
+        <p class="lead mb-5">Please confirm your email address</p>
         <form>
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -259,9 +309,10 @@
           <div class="form-group collapse">
             <input type="text" class="form-control" name="accountLinkUrl" id="accountLinkUrl" readonly />
           </div>
-          <div id="signOnPayload">
+          <div class="mt-5" id="signOnPayload">
             <a href="#" class="btn btn-primary btn-lg mb-2" onclick="javascript:accountLink();">Sign In</a>
           </div>
+          <div class="mt-5" id="selfServicePayload"></div>
         </form>
       </div>
       <!-- /account linking div -->
@@ -502,8 +553,36 @@
     function registerAccount() {
       console.log('registerAccount called');
       let payload = JSON.stringify({ username: $('#accountRegUsername').val(), email: $('#accountRegUsername').val(), password: $('#accountRegPassword').val(), name: { given: 'Michael' } });
-      let url = $('#validatePasswordUrl').val();
+      let url = $('#accountRegUrl').val();
       let contenttype = 'application/vnd.pingidentity.user.register+json';
+      exJax('POST', url, nextStep, contenttype, payload);
+    }
+
+    // show forgot password form
+
+    function showPasswordForgot() {
+      console.log('showPasswordForgot called');
+      $('#loginDiv').hide();
+      $('#passwordForgotDiv').show();
+    }
+
+    // forgot password function
+
+    function passwordForgot() {
+      console.log('passwordForgot called');
+      let payload = JSON.stringify({ username: $('#passwordForgotUsername').val() });
+      let url = $('#passwordForgotUrl').val();
+      let contenttype = 'application/vnd.pingidentity.password.forgot+json';
+      exJax('POST', url, nextStep, contenttype, payload);
+    }
+
+    // password recover function validates passcode sent to email address
+
+    function passwordRecover() {
+      console.log('passwordRecover called');
+      let payload = JSON.stringify({ recoveryCode: $('#passwordRecoverCode').val(), newPassword: $('#passwordRecoverNewPassword').val() })
+      let url = $('#passwordRecoverUrl').val();
+      let contenttype = 'application/vnd.pingidentity.password.recover+json';
       exJax('POST', url, nextStep, contenttype, payload);
     }
 
@@ -547,6 +626,8 @@
       $('#accountLinkDiv').hide();
       $('#userVerifyDiv').hide();
       $('#accountRegDiv').hide();
+      $('#passwordForgotDiv').hide();
+      $('accountVerifyDiv').hide();
 
       switch (status) {
         case 'USERNAME_PASSWORD_REQUIRED':
@@ -578,6 +659,11 @@
           console.log('Rendering password form');
           $('#passwordDiv').show();
           $('#changePasswordUrl').val(data._links['password.reset'].href);
+          break;
+        case 'RECOVERY_CODE_REQUIRED':
+          console.log('Rendering account recovery form');
+          $('#passwordRecoverDiv').show();
+          $('#passwordRecoverUrl').val(data._links['password.recover'].href);
           break;
         case 'DEVICE_SELECTION_REQUIRED':
           console.log('Rendering device selection');
@@ -667,16 +753,37 @@
 
       // check for account registration is enabled
 
-      if (data._links['user.register'].href) {
+      // if (data._links['user.register'].href) {
+
+      if ('user.register' in data._links) {
 
         // yes the authentication policy has registration enabled
 
         console.log('Account registration is enabled');
 
+        $('#accountRegUrl').val(data._links['user.register'].href);
+
         // create a registration button
 
-        newButton = '<a href="#" onclick="showRegistration();" class="btn btn-success btn-lg mb-2 mr-1">Create Account</a>';
-        $('#signOnPayload').append(newButton);
+        newButton = '<a href="#" onclick="showRegistration();" class="btn btn-secondary btn-lg mb-2 mr-1">Create Account</a>';
+        $('#selfServicePayload').append(newButton);
+
+      }
+
+      // check for account recovery is enabled
+
+      if ('password.forgot' in data._links) {
+
+        // yes account recovery is enabled
+
+        console.log('Account recovery is enabled');
+
+        $('#passwordForgotUrl').val(data._links['password.forgot'].href);
+
+        // create a forgot password button
+
+        newButton = '<a href="#" onclick="showPasswordForgot();" class="btn btn-secondary btn-lg mb-2 mr-1">Forgot Password</a>';
+        $('#selfServicePayload').append(newButton);
 
       }
 
@@ -743,7 +850,10 @@
           // does requested nonce match returned nonce?
 
           let returnedNonce = idPayload.nonce;
-          let requestedNonce = window.localStorage.getItem('nonce');
+
+          // let requestedNonce = window.localStorage.getItem('nonce');
+
+          let requestedNonce = Cookies.get('nonce', { domain: cookieDomain });
 
           if (returnedNonce == requestedNonce) {
 
