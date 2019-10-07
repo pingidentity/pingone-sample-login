@@ -2,7 +2,7 @@
 
 const environmentId = 'b9da0edc-794c-453f-8988-f09426f36865'; // available on settings page of p14c admin console
 const clientId = '5f5ca4fb-ac2e-4f2f-bcf6-fcea98a8b8c0'; // available on connections tab of admin console
-const baseUrl = 'https://pingidentity.github.io/pingone-customers-sample-login/login/'; // URL of where you will host this application
+const baseUrl = 'https://pingidentity.github.io/pingone-customers-sample-login/'; // URL of where you will host this application
 
 const scopes = 'openid profile'; // default scopes to request
 const responseType = 'token id_token';
