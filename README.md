@@ -50,7 +50,7 @@ The Applications page shows the new application.  Click the toggle switch to ena
 
 11. **Edit** the Application (click the pencil icon)
 12. On the Profile Tab of your new application, populate **SignOn URL** with the location that dist/login/ will live.  For example, https://www.example.com/login/
-13. On the Configuration Yab of your new application, populat **SignOff URLs** with the location that dist/logout/ will live.  For example, https://www.example.com/logout/
+13. On the Configuration Tab of your new application, populate **SignOff URLs** with the location that dist/logout/ will live.  For example, https://www.example.com/logout/
 14. Click **Save**
 
 ### Get your Environment ID

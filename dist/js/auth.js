@@ -40,9 +40,7 @@ function doLogin() {
     '&nonce=' +
     nonce;
 
-  window.localStorage.setItem('nonce', nonce);
-
-  // window.localStorage.setItem('nonce', 'bogus nonce that does not match');
+  Cookies.set('nonce', nonce, { domain: cookieDomain });
 
   window.location.href = authorizationUrl;
 }
