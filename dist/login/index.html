@@ -894,7 +894,7 @@
 
             console.log('flowId found in url');
             console.log('Performing p14c ajax query to determine next step');
-            let flowUrl = authUrl + '/' + environmentId + '/flows/' + flowId;
+            let flowUrl = authUrl + (environmentId ? '/' + environmentId : '') + '/flows/' + flowId;
             exJax('GET', flowUrl, nextStep, 'application/json');
 
           } else {
