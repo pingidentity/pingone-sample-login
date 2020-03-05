@@ -65,7 +65,7 @@
         Cookies.remove('uuid', { domain: cookieDomain });
         Cookies.remove('nonce', { domain: cookieDomain });
 
-        let logoffUrl = authUrl + '/' + environmentId + '/as/signoff?id_token_hint=' + idToken + '&post_logout_redirect_uri=' + logoutUrl;
+        let logoffUrl = authUrl + (environmentId ? '/' + environmentId : '') + '/as/signoff?id_token_hint=' + idToken + '&post_logout_redirect_uri=' + logoutUrl;
 
         window.location.replace(logoffUrl);
       }

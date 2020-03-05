@@ -12,13 +12,12 @@ const landingUrl = baseUrl; // url to send the person once authentication is com
 const logoutUrl = baseUrl + 'logout/'; // whitelisted url to send a person who wants to logout
 const redirectUri = baseUrl + 'login/'; // whitelisted url P14C sends the token or code to
 
+// set to pingone auth region (e.g. https://auth.pingone.com) or custom domain (e.g. https://auth.mydomain.com)
 const authUrl = 'https://auth.pingone.com';
-const apiUrl = 'https://api.pingone.com/v1';
 
-// if environmentId or clientId are null warn the user
-
-if (!clientId || !environmentId) {
-  alert('Be sure to edit js/auth.js with your environmentId and clientId');
+// if clientId missing warn the user
+if (!clientId) {
+  alert('Be sure to edit js/auth.js with your clientId');
 }
 
 // doLogin function: generates and stores nonce, redirects to authorization request url
@@ -27,8 +26,7 @@ function doLogin() {
   let nonce = generateNonce(60);
   let authorizationUrl =
     authUrl +
-    '/' +
-    environmentId +
+    (environmentId ? '/' + environmentId : '') +
     '/as/authorize?response_type=' +
     responseType +
     '&client_id=' +
