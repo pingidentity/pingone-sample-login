@@ -8,8 +8,13 @@ Provides an example login application for use with PingOne for Customers.  Inclu
 * Expired Password Changes
 * External Identity Providers
 * Account Linking
+* Custom Domains
 
 This sample application is written in HTML and JavaScript and leverages JQuery, Bootstrap and js-cookie.  It leverages the PingOne for Customers Flow APIs (https://apidocs.pingidentity.com/pingone/customer/v1/api/auth/p1-a_Flows/).
+
+## Custom Domains
+
+PingOne optionally supports the mapping of customer-owned and controlled domain names that are used to access user interfaces and services.  More information is available in Ping's documentation portal  (https://apidocs.pingidentity.com/pingone/customer/v1/api/man/p1_CustomDomains/)
 
 ## Quick Start
 
