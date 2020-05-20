@@ -703,7 +703,7 @@
               $('#devicePushMessage').text('Approval request sent to ' + data._embedded.devices[i].model.marketingName);
             }
           }
-          getPushStatus(data._links.flow.href);
+          getPushStatus(data._links.self.href);
           break;
         case 'PUSH_CONFIRMATION_TIMED_OUT':
           console.log('Push confirmation timed out');
