@@ -41,15 +41,19 @@ Once you have your own tenant, use the PingOne for Customers Admin Console to ad
 
 1. Click **Connections**.
 2. Click + **Application**.
-3. Select the **Single Page App** type.
-4. Click **Configure**.
-5. Create the application profile by entering the following information:
+3. Create the application profile by entering the following information:
 * **Application name**: pingone-customers-sample-login or other name
-6. Click **Next**.
-7. **Redirect URI**: The URL where dist/login/ will live.  For example, https://www.example.com/login/
-8. Click **Save and Continue**
-9. At a minimum, add the following scope: **profile**
-10. Click **Save and Close**
+* Select the **Single Page App** type.
+5. Click **Save**.
+6. Click **Configuration** at the top of the app settings.
+7. Click on the pencil to edit the configurations for the app.
+8. Add a **Redirect URI**: The URL where dist/login/ will live.  For example, https://www.example.com/login/
+9. Click **Save and Continue**
+10. Click **Resources** at the top of the app settings.
+11. Click on the pencil to edit the resources for the app.
+12. At a minimum, add the following scope: **profile**
+13. Click **Save**
+14. Click on the slider icon at the top right of the application to enable the app.
 
 The Applications page shows the new application.  Click the toggle switch to enable the application.  View the details of your application and make note of its **Client ID**.
 
@@ -68,7 +72,7 @@ To create your test user:
 
 1. Click **Users**.
 2. Click + **Add User**.
-3. At a minimum, specify a **username** such as michael@example.com.
+3. At a minimum, specify a **username** such as michael@example.com and a **population**.
 4. Click **Save**
 5. View your new user and select **Reset Password**
 6. Specify an initial password, such as **4Science**.
