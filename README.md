@@ -10,11 +10,11 @@ Provides an example login application for use with PingOne for Customers.  Inclu
 * Account Linking
 * Custom Domains
 
-This sample application is written in HTML and JavaScript and leverages JQuery, Bootstrap and js-cookie.  It leverages the PingOne for Customers Flow APIs (https://apidocs.pingidentity.com/pingone/customer/v1/api/auth/p1-a_Flows/).
+This sample application is written in HTML and JavaScript and leverages JQuery, Bootstrap and js-cookie.  It leverages the PingOne for Customers Flow APIs (https://apidocs.pingidentity.com/pingone/platform/v1/api/#flows-1).
 
 ## Custom Domains
 
-PingOne optionally supports the mapping of customer-owned and controlled domain names that are used to access user interfaces and services.  More information is available in Ping's documentation portal  (https://apidocs.pingidentity.com/pingone/customer/v1/api/man/p1_CustomDomains/)
+PingOne optionally supports the mapping of customer-owned and controlled domain names that are used to access user interfaces and services.  More information is available in Ping's documentation portal  (https://apidocs.pingidentity.com/pingone/platform/v1/api/#custom-domains)
 
 ## Quick Start
 
@@ -25,7 +25,7 @@ PingOne optionally supports the mapping of customer-owned and controlled domain 
 ## Contents
 
 * dist/index.html         - Landing page for anonymous or authenticated users
-* dist/js/auth.js         - Shared JavaScript with configuratioin for your P14C tenant
+* dist/js/auth.js         - Shared JavaScript with configuration for your P14C tenant
 * dist/login/index.html   - Sample login application with different user interactions
 * dist/logout/index.html  - Logout mechanism
 
@@ -33,7 +33,7 @@ PingOne optionally supports the mapping of customer-owned and controlled domain 
 
 ### Prerequisites
 
-You will need your own PingOne for Customers tenant.  You can [sign up for a trial](https://developer.pingidentity.com/).
+You will need your own PingOne for Customers tenant.  You can [sign up for a trial](https://www.pingidentity.com/en/try-ping.html).
 
 ### Register your Application Connection
 
